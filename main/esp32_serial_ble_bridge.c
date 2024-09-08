@@ -8,8 +8,8 @@
 #include "utils.h"
 #include "settings.h"
 #include "ble.h"
-#include "commands.h"
 #include "uart.h"
+#include "commands.h"
 
 // *** default settings - change here ***
 
