@@ -1,5 +1,5 @@
 /**
- * Project: ESP32 Ble Serial Bridge
+ * Project: ESP32 Ble Serial Bridge 
  * Author: riozebratubo
  * Copyright: (c) riozebratubo
  * Project license: CC BY-NC 4.0
