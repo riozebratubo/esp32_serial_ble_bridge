@@ -17,4 +17,4 @@ jobs:
       with:
         esp_idf_version: v5.3
         target: esp32
-        path: 'esp32_serial_ble_bridge/'
+        path: '/'
