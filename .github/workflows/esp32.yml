@@ -12,6 +12,13 @@ jobs:
       uses: actions/checkout@v2
       with:
         submodules: 'recursive'
+    - name: Restore cached esp-idf sdk build files
+      id: cache-espidf-restore
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          build/esp-idf/*
+        key: espidf-5.3-last-buildfiles
     - name: Build with esp-idf for target esp32
       uses: espressif/esp-idf-ci-action@v1.1.0
       with:
@@ -21,6 +28,13 @@ jobs:
     - name: Archive artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: dist-without-markdown
+        name: dist
         path: |
           build/*.bin
+    - name: Save cached esp-idf sdk build files
+      id: cache-espidf-save
+      uses: actions/cache/save@v4
+      with:
+        path: |
+          build/esp-idf/*
+        key: ${{ steps.cache-espidf-restore.outputs.cache-primary-key }}          
