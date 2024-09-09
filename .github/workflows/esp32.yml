@@ -30,7 +30,8 @@ jobs:
         esp_idf_version: v5.3
         target: esp32
         path: '/'
-        command: | 
+        command: |
+          whereis faketime
           ~/.local/bin/faketime -f '+2h' idf.py build
     - name: Archive artifacts
       uses: actions/upload-artifact@v4
