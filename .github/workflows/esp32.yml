@@ -19,9 +19,6 @@ jobs:
         path: |
           build/esp-idf/*
         key: espidf-5.3-last-buildfiles
-    - name: Update cached files timestamp to future
-      run: |
-        find ./build/esp-idf/ -type f -name "*" -exec touch {} +        
     - name: Build with esp-idf for target esp32
       uses: espressif/esp-idf-ci-action@v1.1.0
       with:
@@ -29,14 +26,16 @@ jobs:
         target: esp32
         path: '/'
         command: |
-          find /opt/esp/idf/ -type f -name "*" -exec touch -d "-2 hour" {} +
+          find ./build/esp-idf/ -type f -name "*" -exec touch {} +
           idf.py build
     - name: Archive artifacts
       uses: actions/upload-artifact@v4
       with:
         name: dist
         path: |
-          build/*.bin
+          build/bootloader/bootloader.bin
+          build/partition_table/partition-table.bin
+          build/${{ github.event.repository.name }}.bin          
     - name: Save cached esp-idf sdk build files
       id: cache-espidf-save
       uses: actions/cache/save@v4
