@@ -22,17 +22,15 @@ jobs:
     - name: Update cached files timestamp to future
       run: |
         find ./build/esp-idf/ -type f -name "*" -exec touch -d '+1 hour' {} +
-    - name: Install faketime
-      run: sudo apt-get install -y faketime
+    - name: Set new time
+      run: |
+        sudo date --set='+2 hour'
     - name: Build with esp-idf for target esp32
       uses: espressif/esp-idf-ci-action@v1.1.0
       with:
         esp_idf_version: v5.3
         target: esp32
         path: '/'
-        command: |
-          whereis faketime
-          ~/.local/bin/faketime -f '+2h' idf.py build
     - name: Archive artifacts
       uses: actions/upload-artifact@v4
       with:
