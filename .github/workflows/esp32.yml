@@ -26,7 +26,7 @@ jobs:
         target: esp32
         path: '/'
         command: |
-          find ./build/esp-idf/ -type f -name "*.txt" -exec touch {} + && idf.py build
+          find ./build/esp-idf/ -type f -name "*" -exec touch {} + && idf.py build
     - name: Archive artifacts
       uses: actions/upload-artifact@v4
       with:
