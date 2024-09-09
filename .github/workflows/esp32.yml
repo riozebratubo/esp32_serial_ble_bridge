@@ -21,7 +21,7 @@ jobs:
         key: espidf-5.3-last-buildfiles
     - name: Update cached files timestamp to future
       run: |
-        find ./build/esp-idf/ -type f -name "*" -exec touch -d '+2 hour' {} +
+        find ./build/esp-idf/ -type f -name "*" -exec touch -d '+2 minute' {} +
     - name: Build with esp-idf for target esp32
       uses: espressif/esp-idf-ci-action@v1.1.0
       with:
