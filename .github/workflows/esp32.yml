@@ -29,7 +29,8 @@ jobs:
         target: esp32
         path: '/'
         command: |
-          find /opt/esp/idf/ -type f -name "*" -exec touch -d '-2 hour' {} + && idf.py build
+          find /opt/esp/idf/ -type f -name "*" -exec touch -d "-2 hour" {} +
+          idf.py build
     - name: Archive artifacts
       uses: actions/upload-artifact@v4
       with:
