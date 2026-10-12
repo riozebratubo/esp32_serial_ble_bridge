@@ -1,6 +1,8 @@
-# ESP32-C3 BLE Serial Bridge - Known-Good Build
+# ESP32-C3 BLE Serial Bridge
 
-This is the tested ESP32-C3 port of `riozebratubo/esp32_serial_ble_bridge`.
+This a ESP32-C3 port of `riozebratubo/esp32_serial_ble_bridge`.
+
+![pinout](pinout.png "ESP32-C3 UART BRIDGE")  
 
 It provides two independent paths:
 
