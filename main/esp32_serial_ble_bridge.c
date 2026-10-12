@@ -20,8 +20,10 @@ app_settings_t app_settings = {
     .manufacturer_bytes = {0x12, 0x23, 0x45, 0x56},
     .desired_ble_mtu = 400,
     .force_mac_address = "",
-    .uart_pin_tx = 17,
-    .uart_pin_rx = 18,
+    //.uart_pin_tx = 17,
+    //.uart_pin_rx = 18,
+    .uart_pin_tx = 4,
+    .uart_pin_rx = 5,
     .uart_buffer_size = 2048,
     .uart_baud_rate = 115200
 };

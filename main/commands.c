@@ -223,13 +223,42 @@ uint8_t commands_module_process_one_command(int command_length) {
 }
 
 uint8_t commands_module_process_command() {
-    char* newline_position = strchr(commands_buffer, '\r');
+    char* cr_position = strchr(commands_buffer, '\r');
+    char* lf_position = strchr(commands_buffer, '\n');
+    char* newline_position = NULL;
+
+    if (cr_position && lf_position) {
+        newline_position = (cr_position < lf_position) ? cr_position : lf_position;
+    }
+    else if (cr_position) {
+        newline_position = cr_position;
+    }
+    else if (lf_position) {
+        newline_position = lf_position;
+    }
+    else {
+        return 0;
+    }
+
     int command_length = newline_position - commands_buffer;
-    if (command_length) {
+    if (command_length > 0) {
         commands_module_process_one_command(command_length);
     }
-    memcpy(commands_buffer, commands_buffer + command_length + 1, COMMANDS_MODULE_BUFFER_SIZE - command_length - 1);
-    commands_position -= command_length + 1;
+
+    size_t consumed = command_length + 1;
+
+    /* Treat CRLF/LFCR as one line ending, avoiding an extra empty command. */
+    if (commands_position > consumed) {
+        char first = *newline_position;
+        char second = commands_buffer[consumed];
+        if ((first == '\r' && second == '\n') || (first == '\n' && second == '\r')) {
+            consumed++;
+        }
+    }
+
+    memmove(commands_buffer, commands_buffer + consumed, COMMANDS_MODULE_BUFFER_SIZE - consumed);
+    commands_position -= consumed;
+    commands_buffer[commands_position] = '\0';
     return 1;
 }
 
